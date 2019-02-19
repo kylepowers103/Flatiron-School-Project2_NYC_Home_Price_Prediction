@@ -18,6 +18,6 @@ When we plotted out our graphs, the normal distribution was postively skewed. We
 ### Checking Features for Usability
 
 ![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-![Project](PredictAPrice - README Notebook.pdf)
+![Project](https://github.com/kylepowers103/Flatiron-School-Project2_NYC_Home_Price_Prediction/blob/master/PredictAPrice%20-%20README%20Notebook.pdf)
 
 
