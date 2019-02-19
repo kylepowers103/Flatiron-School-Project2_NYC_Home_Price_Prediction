@@ -1,0 +1,2260 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PredictAPrice - README Notebook}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{predictaprice}{%
+\section{PredictAPrice}\label{predictaprice}}
+
+\hypertarget{as-a-property-seller-in-manhattan-what-are-factors-that-affect-what-you-should-price-at}{%
+\subsection{As a property seller in Manhattan, what are factors that
+affect what you should price
+at?}\label{as-a-property-seller-in-manhattan-what-are-factors-that-affect-what-you-should-price-at}}
+
+\hypertarget{datasets}{%
+\subsubsection{Datasets}\label{datasets}}
+
+We used NYC.gov's Rolling Sales data from the last 12 months, and 2
+Zillow datasets: one showing all median prices and one of all square
+footage of properties sold. Both are in the year 2018. We merged all
+datasets together into a main dataframe.
+
+\hypertarget{data-cleaning}{%
+\subsubsection{Data Cleaning}\label{data-cleaning}}
+
+We filtered out all 0 value rows and extreme outliers.
+
+\hypertarget{transforming-data}{%
+\subsubsection{Transforming Data}\label{transforming-data}}
+
+When we plotted out our graphs, the normal distribution was postively
+skewed. We log transformed the data and the graph read much better.
+
+\hypertarget{checking-features-for-usability}{%
+\subsubsection{Checking Features for
+Usability}\label{checking-features-for-usability}}
+
+\begin{figure}
+\centering
+\includegraphics{https://octodex.github.com/images/yaktocat.png}
+\caption{Image of Yaktocat}
+\end{figure}
+
+    \hypertarget{import-all-libraries}{%
+\subsection{Import all libraries}\label{import-all-libraries}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{import} \PY{n}{ols}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}\PY{p}{,} \PY{n}{linear\PYZus{}model}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+        
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{skew}\PY{p}{,}\PY{n}{norm}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{pearsonr}
+        
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{stats}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sms}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        
+        
+        \PY{c+c1}{\PYZsh{} from sklearn.cross\PYZus{}validation import train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+\end{Verbatim}
+
+
+    \hypertarget{access-and-filter-necessary-info-from-3-real-estate-datasets}{%
+\subsection{Access and Filter necessary info from 3 Real Estate
+datasets}\label{access-and-filter-necessary-info-from-3-real-estate-datasets}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}combined Rolling Sales Manhattan excel sheets for years 2016\PYZhy{}2018}
+         \PY{n}{data}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rollingsales\PYZus{}manhattan.xls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}Filter 0 values and very extreme outliers }
+         \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{100}\PY{p}{]} 
+         \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{250000000}\PY{p}{]}  
+         \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GROSS SQUARE FEET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{100}\PY{p}{]} 
+         
+         \PY{c+c1}{\PYZsh{}List of Columns pre\PYZhy{}filtering}
+         \PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOROUGH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NEIGHBORHOOD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BUILDING\PYZus{}CLASS\PYZus{}CATEGORY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TAX\PYZus{}CLASS\PYZus{}AT\PYZus{}PRESENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLOCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EASE\PYZhy{}MENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BUILDING\PYZus{}CLASS\PYZus{}AT\PYZus{}PRESENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ADDRESS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{APARTMENT\PYZus{}NUMBER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZIP\PYZus{}CODE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RESIDENTIAL\PYZus{}UNITS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COMMERCIAL\PYZus{}UNITS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}UNITS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LAND\PYZus{}SQUARE\PYZus{}FEET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GROSS\PYZus{}SQUARE\PYZus{}FEET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR\PYZus{}BUILT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TAX\PYZus{}CLASS\PYZus{}AT\PYZus{}TIME\PYZus{}OF\PYZus{}SALE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BUILDING\PYZus{}CLASS\PYZus{}AT\PYZus{}TIME\PYZus{}OF\PYZus{}SALE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Pull Sq ft data from Zillow Median Square Footage Excel File }
+         \PY{n}{zillow\PYZus{}squarefootage}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Zip\PYZus{}MedianListingPricePerSqft\PYZus{}AllHomes.xls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{zillow\PYZus{}squarefootage}\PY{o}{=}\PY{n}{zillow\PYZus{}squarefootage}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RegionName}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2018\PYZhy{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]} 
+         \PY{n}{zillow\PYZus{}squarefootage}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZIP\PYZus{}CODE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{zillow\PYZus{}squarefootage}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RegionName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{zillow\PYZus{}squarefootage}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZillowSquareFootage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{zillow\PYZus{}squarefootage}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2018\PYZhy{}10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Pull Median Price data from Zillow Median Price Excel File}
+         \PY{n}{zillow\PYZus{}median\PYZus{}listing}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Zip\PYZus{}MedianListingPrice\PYZus{}AllHomes.xls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{zillow\PYZus{}median\PYZus{}listing}\PY{o}{=}\PY{n}{zillow\PYZus{}median\PYZus{}listing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RegionName}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2018\PYZhy{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]} 
+         \PY{n}{zillow\PYZus{}median\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZIP\PYZus{}CODE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{zillow\PYZus{}median\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RegionName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{zillow\PYZus{}median\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZillowMedianPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{zillow\PYZus{}median\PYZus{}listing}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2018\PYZhy{}10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Merge Zillow data together}
+         \PY{n}{new\PYZus{}df2}\PY{o}{=} \PY{n}{zillow\PYZus{}squarefootage}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{zillow\PYZus{}median\PYZus{}listing}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZIP\PYZus{}CODE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} new\PYZus{}df3=new\PYZus{}df2.merge(average\PYZus{}by\PYZus{}zip\PYZus{}2018, how = \PYZsq{}inner\PYZsq{}, on = [\PYZsq{}ZIP\PYZus{}CODE\PYZsq{}])}
+         
+         \PY{c+c1}{\PYZsh{}Merge merged Zillow data with main excel Rolling Sales Data}
+         \PY{n}{new\PYZus{}df3}\PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{new\PYZus{}df2}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZIP\PYZus{}CODE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{new\PYZus{}df}\PY{o}{=}\PY{n}{new\PYZus{}df3}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{new\PYZus{}df}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RegionName\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RegionName\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2018\PYZhy{}10\PYZus{}x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2018\PYZhy{}10\PYZus{}y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} Index(['BOROUGH', 'NEIGHBORHOOD', 'BUILDING\_CLASS\_CATEGORY',
+                'TAX\_CLASS\_AT\_PRESENT', 'BLOCK', 'LOT', 'EASE-MENT',
+                'BUILDING\_CLASS\_AT\_PRESENT', 'ADDRESS', 'APARTMENT\_NUMBER', 'ZIP\_CODE',
+                'RESIDENTIAL\_UNITS', 'COMMERCIAL\_UNITS', 'TOTAL\_UNITS',
+                'LAND\_SQUARE\_FEET', 'GROSS\_SQUARE\_FEET', 'YEAR\_BUILT',
+                'TAX\_CLASS\_AT\_TIME\_OF\_SALE', 'BUILDING\_CLASS\_AT\_TIME\_OF\_SALE',
+                'SALE\_PRICE', 'SALE\_DATE', 'ZillowSquareFootage', 'ZillowMedianPrice'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}    BOROUGH  NEIGHBORHOOD                      BUILDING\_CLASS\_CATEGORY  \textbackslash{}
+         0        1       CLINTON  08 RENTALS - ELEVATOR APARTMENTS              
+         1        1       CLINTON  29 COMMERCIAL GARAGES                         
+         2        1  MIDTOWN WEST  21 OFFICE BUILDINGS                           
+         3        1       CLINTON  26 OTHER HOTELS                               
+         4        1       CLINTON  07 RENTALS - WALKUP APARTMENTS                
+         
+           TAX\_CLASS\_AT\_PRESENT  BLOCK  LOT EASE-MENT BUILDING\_CLASS\_AT\_PRESENT  \textbackslash{}
+         0                    2   1071   42                                  D6   
+         1                    4   1076    1                                  G8   
+         2                    4   1263   56                                  O5   
+         3                    4   1076   57                                  H3   
+         4                    2   1055   55                                  C4   
+         
+                           ADDRESS APARTMENT\_NUMBER        {\ldots}          TOTAL\_UNITS  \textbackslash{}
+         0    520 WEST 43RD STREET                         {\ldots}                  380   
+         1         646 11TH AVENUE                         {\ldots}                    2   
+         2     32 WEST 48TH STREET                         {\ldots}                   61   
+         3  548 WEST 48TH   STREET                         {\ldots}                    1   
+         4    444 WEST 46TH STREET                         {\ldots}                   20   
+         
+            LAND\_SQUARE\_FEET  GROSS\_SQUARE\_FEET  YEAR\_BUILT  TAX\_CLASS\_AT\_TIME\_OF\_SALE  \textbackslash{}
+         0             24100             319967        1996                          2   
+         1             30125              50207        1946                          4   
+         2              8234              33837        1924                          4   
+         3              5021              28540        2010                          4   
+         4              2510               9810        1901                          2   
+         
+            BUILDING\_CLASS\_AT\_TIME\_OF\_SALE  SALE\_PRICE  SALE\_DATE ZillowSquareFootage  \textbackslash{}
+         0                              D6   193000000 2018-08-01         1659.125189   
+         1                              G8    93125000 2018-06-08         1659.125189   
+         2                              O5    40000000 2018-10-26         1659.125189   
+         3                              H3    29168078 2017-12-27         1659.125189   
+         4                              C4     2643864 2018-09-21         1659.125189   
+         
+            ZillowMedianPrice  
+         0          1310000.0  
+         1          1310000.0  
+         2          1310000.0  
+         3          1310000.0  
+         4          1310000.0  
+         
+         [5 rows x 23 columns]
+\end{Verbatim}
+            
+    \hypertarget{data-cleaning-and-deciding-what-features-to-use}{%
+\subsection{Data Cleaning and Deciding what features to
+use}\label{data-cleaning-and-deciding-what-features-to-use}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}Change the datatype of Zillow Median Price and Square Footage from Float to Integer}
+         \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZillowMedianPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZillowMedianPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZillowSquareFootage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZillowSquareFootage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Set target (Y value) = sales price / \PYZsh{}Set features (X values) = all columns (will drop all unecessary)}
+         \PY{n}{target}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{features}\PY{o}{=} \PY{n}{new\PYZus{}df} 
+         
+         \PY{c+c1}{\PYZsh{}Drop unecessary features, maybe drop both Zillow data columns}
+         \PY{n}{features}\PY{o}{=}\PY{n}{features}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}DATE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOROUGH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}                     
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TAX\PYZus{}CLASS\PYZus{}AT\PYZus{}PRESENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BLOCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EASE\PYZhy{}MENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BUILDING\PYZus{}CLASS\PYZus{}AT\PYZus{}PRESENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ADDRESS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{APARTMENT\PYZus{}NUMBER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TOTAL\PYZus{}UNITS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TAX\PYZus{}CLASS\PYZus{}AT\PYZus{}TIME\PYZus{}OF\PYZus{}SALE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BUILDING\PYZus{}CLASS\PYZus{}AT\PYZus{}TIME\PYZus{}OF\PYZus{}SALE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZillowSquareFootage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZillowMedianPrice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{]}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}Data Cleaning}
+         \PY{c+c1}{\PYZsh{}Strip duplicate BUILDING CLASS CATEGORY and NEIGHBORHOOD categories}
+         \PY{n}{features}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BUILDING\PYZus{}CLASS\PYZus{}CATEGORY}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{features}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BUILDING\PYZus{}CLASS\PYZus{}CATEGORY}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+         \PY{n}{features}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BUILDING\PYZus{}CLASS\PYZus{}CATEGORY}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{features}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BUILDING\PYZus{}CLASS\PYZus{}CATEGORY}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{features}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NEIGHBORHOOD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{features}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NEIGHBORHOOD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+         \PY{n}{features}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NEIGHBORHOOD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{features}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NEIGHBORHOOD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Set Category Variables}
+         \PY{n}{cat\PYZus{}vars}\PY{o}{=}\PY{n}{features}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BUILDING\PYZus{}CLASS\PYZus{}CATEGORY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NEIGHBORHOOD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ZIP\PYZus{}CODE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{features}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}   NEIGHBORHOOD       BUILDING\_CLASS\_CATEGORY  ZIP\_CODE  RESIDENTIAL\_UNITS  \textbackslash{}
+         0      CLINTON  08RENTALS-ELEVATORAPARTMENTS     10036                375   
+         1      CLINTON           29COMMERCIALGARAGES     10036                  0   
+         2  MIDTOWNWEST             21OFFICEBUILDINGS     10036                  0   
+         3      CLINTON                 26OTHERHOTELS     10036                  0   
+         4      CLINTON    07RENTALS-WALKUPAPARTMENTS     10036                 20   
+         
+            COMMERCIAL\_UNITS  LAND\_SQUARE\_FEET  GROSS\_SQUARE\_FEET  YEAR\_BUILT  
+         0                 5             24100             319967        1996  
+         1                 2             30125              50207        1946  
+         2                61              8234              33837        1924  
+         3                 1              5021              28540        2010  
+         4                 0              2510               9810        1901  
+\end{Verbatim}
+            
+    \hypertarget{change-category-variables-to-dummy-variables}{%
+\subsection{Change Category Variables to Dummy
+Variables}\label{change-category-variables-to-dummy-variables}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{cat\PYZus{}vars}\PY{p}{:}
+             \PY{n}{cat\PYZus{}list}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{var}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{var}
+             \PY{n}{cat\PYZus{}list} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{features}\PY{p}{[}\PY{n}{var}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{n}{var}\PY{p}{)}\PY{c+c1}{\PYZsh{},drop\PYZus{}first=True)}
+             \PY{n}{data1}\PY{o}{=}\PY{n}{features}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{cat\PYZus{}list}\PY{p}{)}
+             \PY{n}{features}\PY{o}{=}\PY{n}{data1}
+         \PY{n}{data\PYZus{}vars}\PY{o}{=}\PY{n}{features}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{to\PYZus{}keep}\PY{o}{=}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{data\PYZus{}vars} \PY{k}{if} \PY{n}{i} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{cat\PYZus{}vars}\PY{p}{]}
+         \PY{n}{features}\PY{o}{=}\PY{n}{features}\PY{p}{[}\PY{n}{to\PYZus{}keep}\PY{p}{]}
+\end{Verbatim}
+
+
+    \hypertarget{graph-out-sale-price-distribution}{%
+\subsection{Graph out Sale Price
+Distribution}\label{graph-out-sale-price-distribution}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,}\PY{n}{fit}\PY{o}{=}\PY{n}{norm}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{c+c1}{\PYZsh{}Get the fitted parameters used by the function}
+         \PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{sigma}\PY{p}{)} \PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+         \PY{c+c1}{\PYZsh{}QQ plot}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{res} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{probplot}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{plot}\PY{o}{=}\PY{n}{plt}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.show()}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{skewness: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{skew}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kurtosis: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{kurt}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/chrischung/anaconda3/lib/python3.7/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+skewness: 4.750264
+kurtosis: 26.823504
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{transform-data}{%
+\subsection{Transform Data}\label{transform-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}notes}
+         \PY{c+c1}{\PYZsh{}Plotted the distribution of the SALE\PYZus{}PRICE and normal probability graph which is used to identify substantive departures from normality. This includes identifying outliers, skewness and kurtosis. Used the QQ\PYZhy{}plot}
+         \PY{c+c1}{\PYZsh{}log transform the target }
+         \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Kernel Density plot}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,}\PY{n}{fit}\PY{o}{=}\PY{n}{norm}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalePrice distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{c+c1}{\PYZsh{}Get the fitted parameters used by the function}
+         \PY{p}{(}\PY{n}{mu}\PY{p}{,}\PY{n}{sigma}\PY{p}{)}\PY{o}{=} \PY{n}{norm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+         \PY{c+c1}{\PYZsh{}QQ plot}
+         \PY{n}{fig} \PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{res} \PY{o}{=}\PY{n}{stats}\PY{o}{.} \PY{n}{probplot}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SALE\PYZus{}PRICE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{plot}\PY{o}{=}\PY{n}{plt}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/chrischung/anaconda3/lib/python3.7/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{step-1-checking-for-linearity-using-scatterplots}{%
+\section{\# Step 1: Checking for Linearity using
+Scatterplots}\label{step-1-checking-for-linearity-using-scatterplots}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RESIDENTIAL\PYZus{}UNITS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{,} \PY{n}{fit\PYZus{}reg} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/chrischung/anaconda3/lib/python3.7/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c2953d438>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COMMERCIAL\PYZus{}UNITS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{,} \PY{n}{fit\PYZus{}reg} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/chrischung/anaconda3/lib/python3.7/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c295253c8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LAND\PYZus{}SQUARE\PYZus{}FEET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{,} \PY{n}{fit\PYZus{}reg} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/chrischung/anaconda3/lib/python3.7/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c2964a518>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GROSS\PYZus{}SQUARE\PYZus{}FEET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{,} \PY{n}{fit\PYZus{}reg} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/chrischung/anaconda3/lib/python3.7/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c2962e5f8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{graph-showing-the-distribution-of-prices-by-neighborhoood}{%
+\section{Graph showing the distribution of prices by
+neighborhoood}\label{graph-showing-the-distribution-of-prices-by-neighborhoood}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{NEIGHBORHOOD}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,}
+                       \PY{n}{order} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{NEIGHBORHOOD}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{jitter}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} (array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16,
+                 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+                 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]),
+          <a list of 45 Text xticklabel objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{distribution-of-square-footage-and-sale-price}{%
+\section{Distribution of square footage and sale
+price}\label{distribution-of-square-footage-and-sale-price}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{GROSS\PYZus{}SQUARE\PYZus{}FEET}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,}
+                       \PY{n}{order} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{GROSS\PYZus{}SQUARE\PYZus{}FEET}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{jitter}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} (array([  0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,
+                  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,
+                  26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36,  37,  38,
+                  39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,  51,
+                  52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  62,  63,  64,
+                  65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75,  76,  77,
+                  78,  79,  80,  81,  82,  83,  84,  85,  86,  87,  88,  89,  90,
+                  91,  92,  93,  94,  95,  96,  97,  98,  99, 100, 101, 102, 103,
+                 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116,
+                 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129,
+                 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142,
+                 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155,
+                 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168,
+                 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181,
+                 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194,
+                 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207,
+                 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220,
+                 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233,
+                 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246,
+                 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259,
+                 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272,
+                 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285,
+                 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298,
+                 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311,
+                 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324,
+                 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337,
+                 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350,
+                 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363,
+                 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376,
+                 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389,
+                 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402,
+                 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415,
+                 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428,
+                 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441,
+                 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454,
+                 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467,
+                 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480,
+                 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493,
+                 494, 495, 496, 497, 498, 499, 500, 501, 502, 503, 504, 505, 506,
+                 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519,
+                 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532,
+                 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545,
+                 546, 547, 548, 549, 550, 551, 552, 553, 554, 555, 556, 557, 558,
+                 559, 560, 561, 562, 563, 564, 565, 566, 567, 568, 569, 570, 571,
+                 572, 573, 574, 575, 576, 577, 578, 579, 580, 581, 582, 583, 584,
+                 585, 586, 587, 588, 589, 590, 591, 592, 593, 594, 595, 596, 597,
+                 598, 599, 600, 601, 602, 603, 604, 605, 606, 607, 608, 609, 610,
+                 611, 612, 613, 614, 615, 616, 617, 618, 619, 620, 621, 622, 623,
+                 624, 625, 626, 627, 628, 629, 630, 631, 632, 633, 634, 635, 636,
+                 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648, 649,
+                 650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662,
+                 663, 664, 665, 666, 667, 668, 669, 670, 671, 672, 673, 674, 675,
+                 676, 677, 678, 679, 680, 681, 682, 683, 684, 685, 686, 687, 688,
+                 689, 690, 691, 692, 693, 694, 695, 696, 697, 698, 699, 700, 701,
+                 702, 703, 704, 705, 706, 707, 708, 709, 710, 711, 712, 713, 714,
+                 715, 716, 717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727,
+                 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739, 740,
+                 741, 742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752, 753,
+                 754, 755, 756, 757, 758, 759, 760, 761, 762, 763, 764, 765, 766,
+                 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778, 779,
+                 780, 781, 782, 783, 784, 785, 786, 787, 788, 789, 790, 791, 792,
+                 793, 794, 795, 796, 797, 798, 799, 800, 801, 802, 803, 804, 805,
+                 806, 807, 808, 809, 810, 811, 812, 813, 814, 815, 816, 817, 818,
+                 819, 820, 821, 822, 823, 824, 825, 826, 827, 828, 829, 830, 831,
+                 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842, 843, 844,
+                 845, 846, 847, 848, 849, 850, 851, 852, 853, 854, 855, 856, 857,
+                 858, 859, 860, 861, 862, 863, 864, 865]),
+          <a list of 866 Text xticklabel objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{distribution-of-homes-built-by-year}{%
+\section{Distribution of homes built by
+year}\label{distribution-of-homes-built-by-year}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{var}  \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR\PYZus{}BUILT}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{data}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{new\PYZus{}df}\PY{p}{[}\PY{n}{var}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{f}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{var}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{correlation-of-features}{%
+\subsection{Correlation of Features}\label{correlation-of-features}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{features}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{.}\PY{l+m+mi}{75}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:}                    ZIP\_CODE  RESIDENTIAL\_UNITS  COMMERCIAL\_UNITS  \textbackslash{}
+         ZIP\_CODE               True              False             False   
+         RESIDENTIAL\_UNITS     False               True             False   
+         COMMERCIAL\_UNITS      False              False              True   
+         LAND\_SQUARE\_FEET      False              False             False   
+         GROSS\_SQUARE\_FEET     False              False             False   
+         YEAR\_BUILT            False              False             False   
+         
+                            LAND\_SQUARE\_FEET  GROSS\_SQUARE\_FEET  YEAR\_BUILT  
+         ZIP\_CODE                      False              False       False  
+         RESIDENTIAL\_UNITS             False              False       False  
+         COMMERCIAL\_UNITS              False              False       False  
+         LAND\_SQUARE\_FEET               True               True       False  
+         GROSS\_SQUARE\_FEET              True               True       False  
+         YEAR\_BUILT                    False              False        True  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{features}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{center}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{regression-info-below}{%
+\section{Regression Info Below}\label{regression-info-below}}
+
+\hypertarget{features-described-first}{%
+\section{Features described first}\label{features-described-first}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{features}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:}        RESIDENTIAL\_UNITS  COMMERCIAL\_UNITS  LAND\_SQUARE\_FEET  \textbackslash{}
+         count         866.000000        866.000000        866.000000   
+         mean            9.247113          2.975751       5549.627021   
+         std            31.859502         12.372564       6301.376164   
+         min             0.000000          0.000000          0.000000   
+         25\%             0.000000          1.000000       2124.250000   
+         50\%             0.000000          2.000000       4966.500000   
+         75\%             8.000000          2.000000       7532.000000   
+         max           476.000000        292.000000      80333.000000   
+         
+                GROSS\_SQUARE\_FEET   YEAR\_BUILT  \textbackslash{}
+         count       8.660000e+02   866.000000   
+         mean        5.932070e+04  1952.683603   
+         std         9.459625e+04    48.081714   
+         min         3.360000e+02  1800.000000   
+         25\%         6.251500e+03  1910.000000   
+         50\%         2.035950e+04  1925.000000   
+         75\%         1.128500e+05  2007.000000   
+         max         1.613847e+06  2016.000000   
+         
+                BUILDING\_CLASS\_CATEGORY\_01ONEFAMILYDWELLINGS  \textbackslash{}
+         count                                    866.000000   
+         mean                                       0.032333   
+         std                                        0.176984   
+         min                                        0.000000   
+         25\%                                        0.000000   
+         50\%                                        0.000000   
+         75\%                                        0.000000   
+         max                                        1.000000   
+         
+                BUILDING\_CLASS\_CATEGORY\_02TWOFAMILYDWELLINGS  \textbackslash{}
+         count                                    866.000000   
+         mean                                       0.026559   
+         std                                        0.160883   
+         min                                        0.000000   
+         25\%                                        0.000000   
+         50\%                                        0.000000   
+         75\%                                        0.000000   
+         max                                        1.000000   
+         
+                BUILDING\_CLASS\_CATEGORY\_03THREEFAMILYDWELLINGS  \textbackslash{}
+         count                                      866.000000   
+         mean                                         0.021940   
+         std                                          0.146572   
+         min                                          0.000000   
+         25\%                                          0.000000   
+         50\%                                          0.000000   
+         75\%                                          0.000000   
+         max                                          1.000000   
+         
+                BUILDING\_CLASS\_CATEGORY\_07RENTALS-WALKUPAPARTMENTS  \textbackslash{}
+         count                                         866.000000    
+         mean                                            0.259815    
+         std                                             0.438787    
+         min                                             0.000000    
+         25\%                                             0.000000    
+         50\%                                             0.000000    
+         75\%                                             1.000000    
+         max                                             1.000000    
+         
+                BUILDING\_CLASS\_CATEGORY\_08RENTALS-ELEVATORAPARTMENTS       {\ldots}        \textbackslash{}
+         count                                         866.000000          {\ldots}         
+         mean                                            0.049654          {\ldots}         
+         std                                             0.217354          {\ldots}         
+         min                                             0.000000          {\ldots}         
+         25\%                                             0.000000          {\ldots}         
+         50\%                                             0.000000          {\ldots}         
+         75\%                                             0.000000          {\ldots}         
+         max                                             1.000000          {\ldots}         
+         
+                ZIP\_CODE\_10009  ZIP\_CODE\_10012  ZIP\_CODE\_10013  ZIP\_CODE\_10016  \textbackslash{}
+         count      866.000000      866.000000      866.000000      866.000000   
+         mean         0.060046        0.028868        0.080831        0.066975   
+         std          0.237710        0.167533        0.272734        0.250122   
+         min          0.000000        0.000000        0.000000        0.000000   
+         25\%          0.000000        0.000000        0.000000        0.000000   
+         50\%          0.000000        0.000000        0.000000        0.000000   
+         75\%          0.000000        0.000000        0.000000        0.000000   
+         max          1.000000        1.000000        1.000000        1.000000   
+         
+                ZIP\_CODE\_10018  ZIP\_CODE\_10019  ZIP\_CODE\_10027  ZIP\_CODE\_10029  \textbackslash{}
+         count      866.000000      866.000000      866.000000      866.000000   
+         mean         0.033487        0.420323        0.112009        0.100462   
+         std          0.180009        0.493896        0.315560        0.300789   
+         min          0.000000        0.000000        0.000000        0.000000   
+         25\%          0.000000        0.000000        0.000000        0.000000   
+         50\%          0.000000        0.000000        0.000000        0.000000   
+         75\%          0.000000        1.000000        0.000000        0.000000   
+         max          1.000000        1.000000        1.000000        1.000000   
+         
+                ZIP\_CODE\_10036  ZIP\_CODE\_10038  
+         count      866.000000      866.000000  
+         mean         0.025404        0.004619  
+         std          0.157440        0.067845  
+         min          0.000000        0.000000  
+         25\%          0.000000        0.000000  
+         50\%          0.000000        0.000000  
+         75\%          0.000000        0.000000  
+         max          1.000000        1.000000  
+         
+         [8 rows x 65 columns]
+\end{Verbatim}
+            
+    \hypertarget{of-the-5-original-features-used-residential_units-commercial_units-land_square_feet-gross_square_feet-and-year_built-only-the-land_square_feet-had-a-p-value-above-0.05.-its-value-was-0.219}{%
+\section{Of the 5 original features used {[}RESIDENTIAL\_UNITS,
+COMMERCIAL\_UNITS, LAND\_SQUARE\_FEET, GROSS\_SQUARE\_FEET and
+YEAR\_BUILT{]}, only the LAND\_SQUARE\_FEET had a P value above 0.05.
+Its value was
+0.219}\label{of-the-5-original-features-used-residential_units-commercial_units-land_square_feet-gross_square_feet-and-year_built-only-the-land_square_feet-had-a-p-value-above-0.05.-its-value-was-0.219}}
+
+\hypertarget{r2-total-using-4-features-0.727}{%
+\section{R\^{}2 total using 4 features =
+0.727}\label{r2-total-using-4-features-0.727}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} GROSS\PYZus{}SQUARE\PYZus{}FEET:0.645}
+         \PY{c+c1}{\PYZsh{} Residential Units: 0.071}
+         \PY{c+c1}{\PYZsh{} COMMERCIAL\PYZus{}UNITS :0.098}
+         \PY{c+c1}{\PYZsh{} LAND\PYZus{}SQUARE\PYZus{}FEET:0.534}
+         \PY{c+c1}{\PYZsh{} YEAR\PYZus{}BUILT:0.000}
+         \PY{c+c1}{\PYZsh{}ZillowSquareFootage:0.006... pvalue of 0.024}
+         \PY{c+c1}{\PYZsh{}ZillowMedianPrice0.012...pvalue of 0.001}
+         \PY{c+c1}{\PYZsh{}ALL WITH ZILLOW: 0.729}
+         
+         \PY{n}{m7} \PY{o}{=} \PY{n}{ols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE \PYZti{}RESIDENTIAL\PYZus{}UNITS+COMMERCIAL\PYZus{}UNITS+GROSS\PYZus{}SQUARE\PYZus{}FEET+YEAR\PYZus{}BUILT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{new\PYZus{}df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m7}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{m1} \PY{o}{=} \PY{n}{ols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE \PYZti{}GROSS\PYZus{}SQUARE\PYZus{}FEET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{new\PYZus{}df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m1}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} m2 = ols(\PYZsq{}SALE\PYZus{}PRICE \PYZti{}RESIDENTIAL\PYZus{}UNITS \PYZsq{},new\PYZus{}df).fit()}
+         \PY{c+c1}{\PYZsh{} print(m2.summary())}
+         \PY{c+c1}{\PYZsh{} m3 = ols(\PYZsq{}SALE\PYZus{}PRICE \PYZti{}COMMERCIAL\PYZus{}UNITS \PYZsq{},new\PYZus{}df).fit()}
+         \PY{c+c1}{\PYZsh{} print(m3.summary())}
+         \PY{c+c1}{\PYZsh{} m4 = ols(\PYZsq{}SALE\PYZus{}PRICE \PYZti{}LAND\PYZus{}SQUARE\PYZus{}FEET \PYZsq{},new\PYZus{}df).fit()}
+         \PY{c+c1}{\PYZsh{} print(m4.summary())}
+         \PY{n}{m5} \PY{o}{=} \PY{n}{ols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SALE\PYZus{}PRICE \PYZti{}GROSS\PYZus{}SQUARE\PYZus{}FEET }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{new\PYZus{}df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m1}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} m6 = ols(\PYZsq{}SALE\PYZus{}PRICE \PYZti{}YEAR\PYZus{}BUILT \PYZsq{},new\PYZus{}df).fit()}
+         \PY{c+c1}{\PYZsh{} print(m6.summary())}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}regression for zillow items below }
+         \PY{c+c1}{\PYZsh{} m8 = ols(\PYZsq{}SALE\PYZus{}PRICE \PYZti{}ZillowSquareFootage \PYZsq{},new\PYZus{}df).fit()}
+         \PY{c+c1}{\PYZsh{} print(m8.summary())}
+         \PY{c+c1}{\PYZsh{} m9 = ols(\PYZsq{}SALE\PYZus{}PRICE \PYZti{}ZillowMedianPrice \PYZsq{},new\PYZus{}df).fit()}
+         \PY{c+c1}{\PYZsh{} print(m9.summary())}
+         \PY{c+c1}{\PYZsh{} m10 = ols(\PYZsq{}SALE\PYZus{}PRICE \PYZti{}RESIDENTIAL\PYZus{}UNITS+ZillowSquareFootage+ZillowMedianPrice+COMMERCIAL\PYZus{}UNITS+LAND\PYZus{}SQUARE\PYZus{}FEET+GROSS\PYZus{}SQUARE\PYZus{}FEET+YEAR\PYZus{}BUILT \PYZsq{},new\PYZus{}df).fit()}
+         \PY{c+c1}{\PYZsh{} print(m10.summary())}
+         
+         \PY{l+m+mi}{1}\PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{RSS}\PY{o}{/}\PY{n}{TSS}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             SALE\_PRICE   R-squared:                       0.602
+Model:                            OLS   Adj. R-squared:                  0.601
+Method:                 Least Squares   F-statistic:                     326.2
+Date:                Fri, 07 Dec 2018   Prob (F-statistic):          8.86e-171
+Time:                        13:33:48   Log-Likelihood:                -1653.8
+No. Observations:                 866   AIC:                             3318.
+Df Residuals:                     861   BIC:                             3341.
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+Intercept            84.9087      2.607     32.565      0.000      79.791      90.026
+RESIDENTIAL\_UNITS     0.0208      0.002     11.541      0.000       0.017       0.024
+COMMERCIAL\_UNITS      0.0424      0.005      8.798      0.000       0.033       0.052
+GROSS\_SQUARE\_FEET -1.034e-06   7.26e-07     -1.423      0.155   -2.46e-06    3.92e-07
+YEAR\_BUILT           -0.0364      0.001    -27.134      0.000      -0.039      -0.034
+==============================================================================
+Omnibus:                      138.842   Durbin-Watson:                   1.210
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1003.100
+Skew:                           0.503   Prob(JB):                    1.51e-218
+Kurtosis:                       8.176   Cond. No.                     5.23e+06
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 5.23e+06. This might indicate that there are
+strong multicollinearity or other numerical problems.
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             SALE\_PRICE   R-squared:                       0.061
+Model:                            OLS   Adj. R-squared:                  0.060
+Method:                 Least Squares   F-statistic:                     56.30
+Date:                Fri, 07 Dec 2018   Prob (F-statistic):           1.55e-13
+Time:                        13:33:48   Log-Likelihood:                -2025.9
+No. Observations:                 866   AIC:                             4056.
+Df Residuals:                     864   BIC:                             4065.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+Intercept            14.4053      0.101    142.878      0.000      14.207      14.603
+GROSS\_SQUARE\_FEET -6.778e-06   9.03e-07     -7.503      0.000   -8.55e-06      -5e-06
+==============================================================================
+Omnibus:                       99.204   Durbin-Watson:                   0.360
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              276.513
+Skew:                           0.587   Prob(JB):                     9.03e-61
+Kurtosis:                       5.507   Cond. No.                     1.32e+05
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.32e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             SALE\_PRICE   R-squared:                       0.061
+Model:                            OLS   Adj. R-squared:                  0.060
+Method:                 Least Squares   F-statistic:                     56.30
+Date:                Fri, 07 Dec 2018   Prob (F-statistic):           1.55e-13
+Time:                        13:33:48   Log-Likelihood:                -2025.9
+No. Observations:                 866   AIC:                             4056.
+Df Residuals:                     864   BIC:                             4065.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+Intercept            14.4053      0.101    142.878      0.000      14.207      14.603
+GROSS\_SQUARE\_FEET -6.778e-06   9.03e-07     -7.503      0.000   -8.55e-06      -5e-06
+==============================================================================
+Omnibus:                       99.204   Durbin-Watson:                   0.360
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              276.513
+Skew:                           0.587   Prob(JB):                     9.03e-61
+Kurtosis:                       5.507   Cond. No.                     1.32e+05
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.32e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{reg} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{new\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}      BOROUGH               NEIGHBORHOOD  \textbackslash{}
+         0          1                    CLINTON   
+         1          1                    CLINTON   
+         2          1               MIDTOWN WEST   
+         3          1                    CLINTON   
+         4          1                    CLINTON   
+         5          1               MIDTOWN WEST   
+         6          1                    CLINTON   
+         7          1                    CLINTON   
+         8          1               MIDTOWN WEST   
+         9          1               MIDTOWN WEST   
+         10         1               MIDTOWN WEST   
+         11         1                    CLINTON   
+         12         1               MIDTOWN WEST   
+         13         1  CLINTON                     
+         14         1  CLINTON                     
+         15         1  MIDTOWN WEST                
+         16         1  MIDTOWN WEST                
+         17         1  MIDTOWN WEST                
+         18         1  MIDTOWN WEST                
+         19         1  MIDTOWN WEST                
+         20         1  MIDTOWN WEST                
+         21         1  MIDTOWN WEST                
+         22         1            LOWER EAST SIDE   
+         23         1            LOWER EAST SIDE   
+         24         1            LOWER EAST SIDE   
+         25         1            LOWER EAST SIDE   
+         26         1                  CHINATOWN   
+         27         1            LOWER EAST SIDE   
+         28         1            LOWER EAST SIDE   
+         29         1                  CHINATOWN   
+         ..       {\ldots}                        {\ldots}   
+         836        1  GREENWICH VILLAGE-CENTRAL   
+         837        1                       SOHO   
+         838        1               LITTLE ITALY   
+         839        1               LITTLE ITALY   
+         840        1  GREENWICH VILLAGE-CENTRAL   
+         841        1               LITTLE ITALY   
+         842        1  GREENWICH VILLAGE-CENTRAL   
+         843        1  GREENWICH VILLAGE-CENTRAL   
+         844        1                       SOHO   
+         845        1  GREENWICH VILLAGE-CENTRAL   
+         846        1  GREENWICH VILLAGE-CENTRAL   
+         847        1  GREENWICH VILLAGE-CENTRAL   
+         848        1  GREENWICH VILLAGE-CENTRAL   
+         849        1  GREENWICH VILLAGE-CENTRAL   
+         850        1  GREENWICH VILLAGE-CENTRAL   
+         851        1  LITTLE ITALY                
+         852        1  LITTLE ITALY                
+         853        1  LITTLE ITALY                
+         854        1  LITTLE ITALY                
+         855        1  SOHO                        
+         856        1  SOHO                        
+         857        1  SOHO                        
+         858        1  SOHO                        
+         859        1  SOHO                        
+         860        1                  FINANCIAL   
+         861        1                SOUTHBRIDGE   
+         862        1  FINANCIAL                   
+         863        1  SOUTHBRIDGE                 
+         864        1  CIVIC CENTER                
+         865        1  CIVIC CENTER                
+         
+                                   BUILDING\_CLASS\_CATEGORY TAX\_CLASS\_AT\_PRESENT  BLOCK  \textbackslash{}
+         0     08 RENTALS - ELEVATOR APARTMENTS                               2   1071   
+         1     29 COMMERCIAL GARAGES                                          4   1076   
+         2     21 OFFICE BUILDINGS                                            4   1263   
+         3     26 OTHER HOTELS                                                4   1076   
+         4     07 RENTALS - WALKUP APARTMENTS                                 2   1055   
+         5     22 STORE BUILDINGS                                             4   1034   
+         6     07 RENTALS - WALKUP APARTMENTS                                 2   1053   
+         7     07 RENTALS - WALKUP APARTMENTS                                2A   1058   
+         8     22 STORE BUILDINGS                                             4   1263   
+         9     22 STORE BUILDINGS                                             4   1263   
+         10    22 STORE BUILDINGS                                             4    999   
+         11    02 TWO FAMILY DWELLINGS                                        1   1053   
+         12    38 ASYLUMS AND HOMES                                           4   1039   
+         13   29  COMMERCIAL GARAGES                                          4   1095   
+         14   37  RELIGIOUS FACILITIES                                        4   1053   
+         15   07  RENTALS - WALKUP APARTMENTS                                 2   1036   
+         16   21  OFFICE BUILDINGS                                            4   1260   
+         17   21  OFFICE BUILDINGS                                            4   1260   
+         18   21  OFFICE BUILDINGS                                            4   1263   
+         19   22  STORE BUILDINGS                                             4   1001   
+         20   25  LUXURY HOTELS                                               4   1260   
+         21   29  COMMERCIAL GARAGES                                          4   1263   
+         22    08 RENTALS - ELEVATOR APARTMENTS                               2    246   
+         23    08 RENTALS - ELEVATOR APARTMENTS                               2    283   
+         24    08 RENTALS - ELEVATOR APARTMENTS                               2    343   
+         25    08 RENTALS - ELEVATOR APARTMENTS                               2    350   
+         26    07 RENTALS - WALKUP APARTMENTS                                 2    277   
+         27    21 OFFICE BUILDINGS                                            4    424   
+         28    07 RENTALS - WALKUP APARTMENTS                                 2    411   
+         29    07 RENTALS - WALKUP APARTMENTS                                 2    280   
+         ..                                            {\ldots}                  {\ldots}    {\ldots}   
+         836   23 LOFT BUILDINGS                                              4    529   
+         837   08 RENTALS - ELEVATOR APARTMENTS                               2    488   
+         838   07 RENTALS - WALKUP APARTMENTS                                 2    507   
+         839   07 RENTALS - WALKUP APARTMENTS                                 2    507   
+         840   07 RENTALS - WALKUP APARTMENTS                                2B    537   
+         841   01 ONE FAMILY DWELLINGS                                        1    494   
+         842   07 RENTALS - WALKUP APARTMENTS                                2B    543   
+         843   07 RENTALS - WALKUP APARTMENTS                                2A    531   
+         844   22 STORE BUILDINGS                                             4    499   
+         845   03 THREE FAMILY DWELLINGS                                      1    526   
+         846  01  ONE FAMILY DWELLINGS                                        1    525   
+         847  01  ONE FAMILY DWELLINGS                                        1    526   
+         848  02  TWO FAMILY DWELLINGS                                        1    542   
+         849  14  RENTALS - 4-10 UNIT                                        2A    526   
+         850  23  LOFT BUILDINGS                                              4    525   
+         851  07  RENTALS - WALKUP APARTMENTS                                 2    494   
+         852  07  RENTALS - WALKUP APARTMENTS                                 2    508   
+         853  07  RENTALS - WALKUP APARTMENTS                                2B    508   
+         854  07  RENTALS - WALKUP APARTMENTS                                 2    510   
+         855  07  RENTALS - WALKUP APARTMENTS                                 2    489   
+         856  07  RENTALS - WALKUP APARTMENTS                                2B    496   
+         857  14  RENTALS - 4-10 UNIT                                        2A    520   
+         858  41  TAX CLASS 4 - OTHER                                         4    511   
+         859  41  TAX CLASS 4 - OTHER                                         4    513   
+         860   08 RENTALS - ELEVATOR APARTMENTS                              2A     79   
+         861   14 RENTALS - 4-10 UNIT                                        2A     90   
+         862  26  OTHER HOTELS                                                4     78   
+         863  08  RENTALS - ELEVATOR APARTMENTS                               2     92   
+         864  14  RENTALS - 4-10 UNIT                                        2B    145   
+         865  23  LOFT BUILDINGS                                              4    136   
+         
+              LOT EASE-MENT BUILDING\_CLASS\_AT\_PRESENT  \textbackslash{}
+         0     42                                  D6   
+         1      1                                  G8   
+         2     56                                  O5   
+         3     57                                  H3   
+         4     55                                  C4   
+         5     31                                  K4   
+         6      6                                  C4   
+         7    113                                  C3   
+         8     55                                  K9   
+         9     21                                  K2   
+         10    11                                  K4   
+         11    55                                  S2   
+         12   123                                  N9   
+         13    24                                  G2   
+         14    59                                  M4   
+         15    45                                  C7   
+         16     1                                  O4   
+         17    64                                  O6   
+         18     1                                  O5   
+         19    11                                  K9   
+         20    56                                  H2   
+         21    45                                  G1   
+         22     1                                  D6   
+         23    24                                  D7   
+         24    68                                  D6   
+         25    69                                  D1   
+         26     2                                  C7   
+         27     6                                  O6   
+         28    42                                  C7   
+         29    10                                  C7   
+         ..   {\ldots}       {\ldots}                       {\ldots}   
+         836   62                                  L3   
+         837    8                                  D1   
+         838   10                                  C7   
+         839    1                                  C7   
+         840   11                                  C7   
+         841   22                                  A7   
+         842   67                                  C5   
+         843   39                                  C3   
+         844   15                                  K9   
+         845   45                                  C0   
+         846   34                                  S1   
+         847   51                                  A4   
+         848   46                                  S2   
+         849   61                                  S4   
+         850   31                                  L9   
+         851   28                                  C7   
+         852   42                                  C7   
+         853   43                                  C7   
+         854   26                                  C7   
+         855   36                                  C7   
+         856   35                                  C7   
+         857   79                                  S5   
+         858   19                                  O2   
+         859   28                                  K2   
+         860   26                                  D5   
+         861   23                                  S5   
+         862   20                                  H8   
+         863    3                                  D5   
+         864   10                                  S9   
+         865   20                                  L8   
+         
+                                                ADDRESS APARTMENT\_NUMBER  \textbackslash{}
+         0                         520 WEST 43RD STREET                    
+         1                              646 11TH AVENUE                    
+         2                          32 WEST 48TH STREET                    
+         3                       548 WEST 48TH   STREET                    
+         4                         444 WEST 46TH STREET                    
+         5                                 687 8 AVENUE                    
+         6                       459 WEST 43RD   STREET                    
+         7                         435 WEST 48TH STREET                    
+         8                          30 WEST 48TH STREET                    
+         9                          25 WEST 47TH STREET                    
+         10                        149 WEST 46TH STREET                    
+         11                        448 WEST 44TH STREET                    
+         12                      317 WEST 48TH   STREET                    
+         13   607-611 WEST 47TH   STREET                                   
+         14   460 WEST 44TH   STREET                                       
+         15   328 WEST 46TH   STREET                                       
+         16   1140 AVENUE OF THE AMER                                      
+         17   56 WEST 45TH   STREET                                        
+         18   1200 AVENUE OF THE AMER                                      
+         19   151 WEST 48TH   STREET                                       
+         20   40 WEST 45TH   STREET                                        
+         21   10 WEST 48TH   STREET                                        
+         22                            275 SOUTH STREET                    
+         23                           10 RUTGERS STREET                    
+         24                         208 DELANCEY STREET                    
+         25                         155 ATTORNEY STREET                    
+         26                        77-79 MADISON STREET                    
+         27                                  161 BOWERY                    
+         28                       138-140 LUDLOW STREET                    
+         29                             41 HENRY STREET                    
+         ..                                         {\ldots}              {\ldots}   
+         836                         43 BLEECKER STREET                    
+         837                         68 THOMPSON STREET                    
+         838                   244-246 ELIZABETH STREET                    
+         839                           13 PRINCE STREET                    
+         840                        228 THOMPSON STREET                    
+         841                           38 PRINCE STREET                    
+         842                      133 WEST 3RD   STREET                    
+         843                                 356 BOWERY                    
+         844                          106 PRINCE STREET                    
+         845                        76 MACDOUGAL STREET                    
+         846  168 THOMPSON STREET                                          
+         847  88 MACDOUGAL STREET                                          
+         848  109 MACDOUGAL STREET                                         
+         849  176 BLEECKER STREET                                          
+         850  124 WEST HOUSTON STREET                                      
+         851  223 MOTT STREET                                              
+         852  239 ELIZABETH STREET                                         
+         853  237 ELIZABETH STREET                                         
+         854  49-51 PRINCE STREET                                          
+         855  59 THOMPSON STREET                                           
+         856  65 SPRING STREET                                             
+         857  51 MAC DOUGAL STREET                                         
+         858  19 EAST HOUSTON STREET                                       
+         859  155 MERCER STREET                                            
+         860                          142 FULTON STREET                    
+         861                              17 ANN STREET                    
+         862  106 FULTON STREET                                            
+         863  165-167 WILLIAM STREET                                       
+         864  121 CHAMBERS STREET                                          
+         865  124 CHAMBERS STREET                                          
+         
+                    {\ldots}          TOTAL\_UNITS  LAND\_SQUARE\_FEET  GROSS\_SQUARE\_FEET  \textbackslash{}
+         0          {\ldots}                  380             24100             319967   
+         1          {\ldots}                    2             30125              50207   
+         2          {\ldots}                   61              8234              33837   
+         3          {\ldots}                    1              5021              28540   
+         4          {\ldots}                   20              2510               9810   
+         5          {\ldots}                    5              2017               7760   
+         6          {\ldots}                   13              2510               6640   
+         7          {\ldots}                    4              2510               6560   
+         8          {\ldots}                    5              2070               6350   
+         9          {\ldots}                   26              2397               5643   
+         10         {\ldots}                    3              1883               3982   
+         11         {\ldots}                    3              1883               3600   
+         12         {\ldots}                    0              1808               3200   
+         13         {\ldots}                    2              7531              15062   
+         14         {\ldots}                    2              5021               8848   
+         15         {\ldots}                   14              4017               7316   
+         16         {\ldots}                   84              9375             179513   
+         17         {\ldots}                   62              4016              58538   
+         18         {\ldots}                   42              2900              21600   
+         19         {\ldots}                    1              1903              10167   
+         20         {\ldots}                    1              6025              58935   
+         21         {\ldots}                    2              7531              51403   
+         22         {\ldots}                  258             51180             262875   
+         23         {\ldots}                   89             12002              74453   
+         24         {\ldots}                   70             10925              67296   
+         25         {\ldots}                   37              7500              31455   
+         26         {\ldots}                   30              5029              21274   
+         27         {\ldots}                    7              2664              18994   
+         28         {\ldots}                   29              4235              18180   
+         29         {\ldots}                   21              2725              10860   
+         ..         {\ldots}                  {\ldots}               {\ldots}                {\ldots}   
+         836        {\ldots}                   15              6702              37993   
+         837        {\ldots}                   41              4417              16749   
+         838        {\ldots}                   20              4027              14275   
+         839        {\ldots}                   23              2918              12528   
+         840        {\ldots}                    9              2476               8793   
+         841        {\ldots}                    1              3309               8069   
+         842        {\ldots}                   10              2550               6158   
+         843        {\ldots}                    4              1785               6155   
+         844        {\ldots}                    5              1000               5055   
+         845        {\ldots}                    3              2010               3360   
+         846        {\ldots}                    2              1350               5807   
+         847        {\ldots}                    1              2002               3556   
+         848        {\ldots}                    3              1580               3902   
+         849        {\ldots}                    5              2140               5040   
+         850        {\ldots}                    8              2500              13150   
+         851        {\ldots}                   20              2575               9170   
+         852        {\ldots}                   11              1805               7670   
+         853        {\ldots}                    8              1828               5312   
+         854        {\ldots}                   30              3850              16388   
+         855        {\ldots}                   36              4000              15918   
+         856        {\ldots}                   10              1927               7690   
+         857        {\ldots}                    6              1937               5240   
+         858        {\ldots}                    2              6190              41267   
+         859        {\ldots}                    1              4600              18120   
+         860        {\ldots}                    6              2898              13194   
+         861        {\ldots}                    6               855               5520   
+         862        {\ldots}                    3              5646              74863   
+         863        {\ldots}                   13              3480              31073   
+         864        {\ldots}                   10              3788              18500   
+         865        {\ldots}                    6              1894              10359   
+         
+              YEAR\_BUILT  TAX\_CLASS\_AT\_TIME\_OF\_SALE  BUILDING\_CLASS\_AT\_TIME\_OF\_SALE  \textbackslash{}
+         0          1996                          2                              D6   
+         1          1946                          4                              G8   
+         2          1924                          4                              O5   
+         3          2010                          4                              H3   
+         4          1901                          2                              C4   
+         5          1920                          4                              K4   
+         6          1910                          2                              C4   
+         7          1910                          2                              C3   
+         8          1920                          4                              K9   
+         9          1938                          4                              K2   
+         10         1920                          4                              K4   
+         11         1899                          1                              S2   
+         12         1920                          4                              N9   
+         13         1940                          4                              G2   
+         14         1910                          4                              M4   
+         15         1920                          2                              C7   
+         16         1931                          4                              O4   
+         17         1914                          4                              O6   
+         18         1960                          4                              O5   
+         19         1920                          4                              K9   
+         20         1903                          4                              H2   
+         21         1966                          4                              G1   
+         22         1978                          2                              D6   
+         23         2001                          2                              D7   
+         24         2013                          2                              D6   
+         25         2015                          2                              D1   
+         26         1918                          2                              C7   
+         27         1920                          4                              O6   
+         28         1920                          2                              C7   
+         29         1900                          2                              C7   
+         ..          {\ldots}                        {\ldots}                             {\ldots}   
+         836        1900                          4                              L3   
+         837        1901                          2                              D1   
+         838        1900                          2                              C7   
+         839        1910                          2                              C7   
+         840        1900                          2                              C7   
+         841        1900                          1                              A7   
+         842        1900                          2                              C5   
+         843        1910                          2                              C3   
+         844        1900                          4                              K9   
+         845        1899                          1                              C0   
+         846        1900                          1                              S1   
+         847        1899                          1                              A4   
+         848        1901                          1                              S2   
+         849        1900                          2                              S4   
+         850        1900                          4                              L9   
+         851        1900                          2                              C7   
+         852        1914                          2                              C7   
+         853        1910                          2                              C7   
+         854        1915                          2                              C7   
+         855        1900                          2                              C7   
+         856        1920                          2                              C7   
+         857        1920                          2                              S5   
+         858        2016                          4                              Z7   
+         859        1920                          4                              Z9   
+         860        1909                          2                              D5   
+         861        1900                          2                              S5   
+         862        1900                          4                              H8   
+         863        1908                          2                              D5   
+         864        1930                          2                              S9   
+         865        1920                          4                              L8   
+         
+              SALE\_PRICE  SALE\_DATE ZillowSquareFootage  ZillowMedianPrice  
+         0     19.078201 2018-08-01                1659            1310000  
+         1     18.349453 2018-06-08                1659            1310000  
+         2     17.504390 2018-10-26                1659            1310000  
+         3     17.188585 2017-12-27                1659            1310000  
+         4     14.787752 2018-09-21                1659            1310000  
+         5     16.436549 2018-05-16                1659            1310000  
+         6     16.231424 2018-01-24                1659            1310000  
+         7     15.706361 2018-07-30                1659            1310000  
+         8     16.146975 2018-10-26                1659            1310000  
+         9     16.299348 2018-10-26                1659            1310000  
+         10    16.929026 2018-10-23                1659            1310000  
+         11    14.800354 2018-01-19                1659            1310000  
+         12    15.150512 2018-03-23                1659            1310000  
+         13    16.733281 2017-01-20                1659            1310000  
+         14    15.896201 2017-03-17                1659            1310000  
+         15    16.341239 2017-01-27                1659            1310000  
+         16    19.008467 2016-06-15                1659            1310000  
+         17    17.727534 2017-01-05                1659            1310000  
+         18    17.579034 2017-04-14                1659            1310000  
+         19    16.381267 2016-09-01                1659            1310000  
+         20    17.887950 2016-08-25                1659            1310000  
+         21    17.431819 2016-06-09                1659            1310000  
+         22    18.936494 2017-12-14                2030            1550500  
+         23    17.893048 2017-12-27                2030            1550500  
+         24    17.197818 2017-12-15                2030            1550500  
+         25    17.437181 2018-03-23                2030            1550500  
+         26    16.300417 2018-04-25                2030            1550500  
+         27    17.003927 2018-08-30                2030            1550500  
+         28    16.754673 2018-01-16                2030            1550500  
+         29    15.761421 2018-09-21                2030            1550500  
+         ..          {\ldots}        {\ldots}                 {\ldots}                {\ldots}  
+         836   17.526029 2018-04-23                2262            2995000  
+         837   17.942645 2017-12-28                2262            2995000  
+         838   14.347439 2018-06-08                2262            2995000  
+         839   16.972511 2018-03-19                2262            2995000  
+         840   16.475770 2018-07-16                2262            2995000  
+         841   16.860033 2018-08-30                2262            2995000  
+         842   15.995928 2017-12-21                2262            2995000  
+         843   15.761421 2017-11-22                2262            2995000  
+         844   18.228309 2018-02-12                2262            2995000  
+         845   15.882373 2018-04-09                2262            2995000  
+         846   16.118096 2016-11-22                2262            2995000  
+         847   16.341239 2016-09-09                2262            2995000  
+         848   15.473739 2017-01-04                2262            2995000  
+         849   16.031121 2017-04-18                2262            2995000  
+         850   16.556351 2016-05-24                2262            2995000  
+         851   16.066802 2017-04-12                2262            2995000  
+         852   15.761421 2016-08-09                2262            2995000  
+         853   15.796512 2016-07-11                2262            2995000  
+         854   15.983707 2016-08-30                2262            2995000  
+         855   16.862649 2016-10-28                2262            2995000  
+         856   16.489659 2016-11-01                2262            2995000  
+         857   16.102982 2016-12-22                2262            2995000  
+         858   17.474575 2016-05-20                2262            2995000  
+         859   18.348110 2016-11-04                2262            2995000  
+         860   16.867628 2018-10-17                1723            1695000  
+         861   15.573369 2018-01-09                1723            1695000  
+         862   17.749295 2016-10-07                1723            1695000  
+         863   16.759950 2017-02-10                1723            1695000  
+         864   16.600522 2016-08-16                2083            4075000  
+         865   15.761421 2016-06-01                2083            4075000  
+         
+         [866 rows x 23 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{train1}\PY{o}{=} \PY{n}{features} \PY{c+c1}{\PYZsh{} can change to scaled\PYZus{}features or features to test regresion model with or without categorical values }
+         \PY{n}{labels}\PY{o}{=}\PY{n}{target}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{x\PYZus{}train} \PY{p}{,} \PY{n}{x\PYZus{}test} \PY{p}{,} \PY{n}{y\PYZus{}train} \PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{train1} \PY{p}{,} \PY{n}{labels} \PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.20}\PY{p}{,}\PY{n}{random\PYZus{}state} \PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{lm} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} evaluation using r\PYZhy{}square}
+         
+         \PY{n}{lm}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} x\PYZus{}test}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} 0.7317281102976905
+\end{Verbatim}
+            
+    \hypertarget{we-create-a-scatterplot-between-the-predicted-prices-where-m-is-the-fitted-model-and-the-original-prices.}{%
+\subsubsection{We create a scatterplot between the predicted prices,
+(where m is the fitted model) and the original
+prices.}\label{we-create-a-scatterplot-between-the-predicted-prices-where-m-is-the-fitted-model-and-the-original-prices.}}
+
+\hypertarget{a-perfect-model-would-get-us-a-scatterplot-where-all-the-data-lies-on-the-45-degree-line.}{%
+\section{A perfect model would get us a scatterplot where all the data
+lies on the 45 degree
+line.}\label{a-perfect-model-would-get-us-a-scatterplot-where-all-the-data-lies-on-the-45-degree-line.}}
+
+\hypertarget{data-shows-we-are-more-accurate-when-we-hit-prices-around-160-million}{%
+\section{Data shows we are more accurate when we hit prices around 160
+million}\label{data-shows-we-are-more-accurate-when-we-hit-prices-around-160-million}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{predicted\PYZus{}prices} \PY{o}{=} \PY{n}{m7}\PY{o}{.}\PY{n}{fittedvalues}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{predicted\PYZus{}prices}\PY{p}{,} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted Prices by Model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Prices}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predictions vs. Original Prices}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{x} \PY{o}{=} \PY{n}{m7}\PY{o}{.}\PY{n}{fittedvalues}
+         \PY{n}{y} \PY{o}{=} \PY{n}{m7}\PY{o}{.}\PY{n}{resid}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fitted Values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.ylabel(\PYZdq{}Residual\PYZdq{})}
+         \PY{c+c1}{\PYZsh{} plt.title(\PYZdq{}Fitted Values vs. Residuals\PYZdq{})}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} the model is predicting heteroskedastically, }
+         \PY{n}{because} \PY{n}{we} \PY{n}{are} \PY{n}{overpredicting} \PY{n}{the} \PY{n}{price} \PY{n}{when} \PY{n}{the} \PY{n}{actual} \PY{n}{price} \PY{o+ow}{is} \PY{n}{low} \PY{o+ow}{and} \PY{n}{underpredicting} \PY{n}{when} \PY{n}{it} \PY{o+ow}{is} \PY{n}{high}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} Text(0.5,0,'Fitted Values')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{sm}\PY{o}{.}\PY{n}{qqplot}\PY{p}{(}\PY{n}{m7}\PY{o}{.}\PY{n}{resid}\PY{p}{,}\PY{n}{line}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{45}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}64}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} SALE\_PRICE    0.502126
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{reg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)} 
+         \PY{c+c1}{\PYZsh{}highest score with all variables (2110) is .79}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} 0.7250078942974605
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)} \PY{c+c1}{\PYZsh{}from seans ridge nad lasso slides }
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RMSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE: 184264415698494.62
+RMSE: 13574402.959191047
+
+    \end{Verbatim}
+
+    \hypertarget{overall-metrics}{%
+\subsection{Overall Metrics}\label{overall-metrics}}
+
+\begin{itemize}
+\tightlist
+\item
+  Root Mean Square Error : 13574402.959191047
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{median\PYZus{}absolute\PYZus{}error}
+         \PY{n}{median\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} sklearn.metrics.median\PYZus{}absolute\PYZus{}error(y\PYZus{}true, y\PYZus{}pred)[source]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 1585151.4366711155
+\end{Verbatim}
+            
+    \hypertarget{next-steps}{%
+\subsection{Next Steps}\label{next-steps}}
+
+\begin{itemize}
+\tightlist
+\item
+  Regularization (with Lasso and Ridge)
+\item
+  Determine why our predictions are heteroskedastic.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{coef} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{lm}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{columns} \PY{p}{)} \PY{c+c1}{\PYZsh{}takes co\PYZhy{}effficent and pairs up with columns, and looks at }
+         
+         \PY{n}{model\PYZus{}coef} \PY{o}{=} \PY{n}{coef}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         
+         \PY{n}{model\PYZus{}coef}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Modal Coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c24c92b00>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} SALE\_PRICE    2.596045e+07
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{X\PYZus{}train}\PY{o}{=}\PY{n}{x\PYZus{}train} \PY{c+c1}{\PYZsh{}***}
+         \PY{n}{X\PYZus{}test}\PY{o}{=}\PY{n}{x\PYZus{}test}
+         \PY{n}{ridgeReg} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{ridgeReg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{ridgeReg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}calculating mse}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RMSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{o}{/} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{coef} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{ridgeReg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns} \PY{p}{)}
+         
+         \PY{n}{model\PYZus{}coef} \PY{o}{=} \PY{n}{coef}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         
+         \PY{n}{model\PYZus{}coef}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RR Model Coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE: 247987123402372.03
+RMSE: 15747606.91033314
+SALE\_PRICE    0.6066
+dtype: float64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c260557f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}Identifing Outliers}
+         \PY{n}{X\PYZus{}train}\PY{o}{=}\PY{n}{x\PYZus{}train} \PY{c+c1}{\PYZsh{}***}
+         \PY{n}{X\PYZus{}test}\PY{o}{=}\PY{n}{x\PYZus{}test}
+         \PY{n}{ridgeReg} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{ridgeReg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{ridgeReg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}calculating mse}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RMSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{o}{/} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{coef} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{ridgeReg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns} \PY{p}{)}
+         
+         \PY{n}{model\PYZus{}coef} \PY{o}{=} \PY{n}{coef}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         
+         \PY{n}{model\PYZus{}coef}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RR Model Coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE: 218642713567700.6
+RMSE: 14786572.069540005
+SALE\_PRICE    0.569581
+dtype: float64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c2617dc50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{8000}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         
+         
+         \PY{n}{predicted\PYZus{}prices} \PY{o}{=} \PY{n}{m7}\PY{o}{.}\PY{n}{fittedvalues}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted Prices by Model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.ylabel()}
+         \PY{c+c1}{\PYZsh{} plt.title(\PYZdq{}Predictions vs. Original Prices\PYZdq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{predicted\PYZus{}prices}\PY{p}{,} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} <matplotlib.collections.PathCollection at 0x1c26e057f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}***Lasso regression not only helps in reducing over\PYZhy{}fitting but it can help us in feature selection.}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Lasso}
+         
+         
+         \PY{n}{lassoReg} \PY{o}{=} \PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{lassoReg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{lassoReg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}calculating mse}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RMSE:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{o}{/} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         
+         
+         \PY{n}{coef} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{lassoReg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns} \PY{p}{)}
+         \PY{n}{model\PYZus{}coef} \PY{o}{=} \PY{n}{coef}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+         
+         \PY{n}{model\PYZus{}coef}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lasso Model Coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/chrischung/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/coordinate\_descent.py:491: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations. Fitting data with very small alpha may cause precision problems.
+  ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE: 184445775930621.6
+RMSE: 13581081.544951476
+SALE\_PRICE    0.523145
+dtype: float64
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c262c1828>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{RFE}
+         \PY{n}{rfe} \PY{o}{=} \PY{n}{RFE}\PY{p}{(}\PY{n}{lm}\PY{p}{,} \PY{n}{n\PYZus{}features\PYZus{}to\PYZus{}select}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{rfe}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}selected\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-35-22d8e31e57c9> in <module>()
+          1 from sklearn.feature\_selection import RFE
+          2 rfe = RFE(lm, n\_features\_to\_select=10)
+    ----> 3 rfe.fit(features\_selected\_train,y\_train)
+    
+
+        NameError: name 'features\_selected\_train' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fivethirtyeight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{SALE\PYZus{}PRICE}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{25}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ticklabel\PYZus{}format}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sci}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scilimits}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{House Sales Price in USD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of Houses}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{House Sales Price Distribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} x\PYZus{}test}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{pipeline}
+        
+        \PY{n}{scaler} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X\PYZus{}test}\PY{o}{=}\PY{n}{x\PYZus{}test}\PY{c+c1}{\PYZsh{}[[\PYZsq{}RESIDENTIAL\PYZus{}UNITS\PYZsq{}, \PYZsq{}COMMERCIAL\PYZus{}UNITS\PYZsq{}, \PYZsq{}LAND\PYZus{}SQUARE\PYZus{}FEET\PYZsq{},\PYZsq{}GROSS\PYZus{}SQUARE\PYZus{}FEET\PYZsq{}, \PYZsq{}YEAR\PYZus{}BUILT\PYZsq{}]]}
+        \PY{n}{X\PYZus{}test1}\PY{o}{=}\PY{n}{x\PYZus{}test}\PY{c+c1}{\PYZsh{}[[\PYZsq{}RESIDENTIAL\PYZus{}UNITS\PYZsq{}, \PYZsq{}COMMERCIAL\PYZus{}UNITS\PYZsq{}, \PYZsq{}LAND\PYZus{}SQUARE\PYZus{}FEET\PYZsq{},\PYZsq{}GROSS\PYZus{}SQUARE\PYZus{}FEET\PYZsq{}, \PYZsq{}YEAR\PYZus{}BUILT\PYZsq{},\PYZdq{}BUILDING\PYZus{}CLASS\PYZus{}CATEGORY\PYZus{}01ONEFAMILYDWELLINGS\PYZdq{}]]}
+        \PY{n}{X\PYZus{}test1}\PY{o}{=}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RESIDENTIAL\PYZus{}UNITS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{COMMERCIAL\PYZus{}UNITS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LAND\PYZus{}SQUARE\PYZus{}FEET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GROSS\PYZus{}SQUARE\PYZus{}FEET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YEAR\PYZus{}BUILT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BUILDING\PYZus{}CLASS\PYZus{}CATEGORY\PYZus{}01ONEFAMILYDWELLINGS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{X\PYZus{}train}\PY{o}{=}\PY{n}{x\PYZus{}train}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{scaler}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test1}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test1}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{X\PYZus{}test1}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{scaler}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{features\PYZus{}scaled\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+        
+        \PY{n}{features\PYZus{}scaled\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features\PYZus{}scaled\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+        
+        \PY{n}{features\PYZus{}scaled\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{poly} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{interaction\PYZus{}only}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{include\PYZus{}bias}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{features\PYZus{}64\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{poly}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{features\PYZus{}scaled\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{poly}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{n}{features\PYZus{}scaled\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+        \PY{n}{features\PYZus{}64\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{features\PYZus{}64\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{n}{features\PYZus{}64\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{poly}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{features\PYZus{}scaled\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{poly}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{n}{features\PYZus{}scaled\PYZus{}test}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+        \PY{n}{features\PYZus{}64\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{o}{*}\PY{o}{*}\PY{o}{*}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{VarianceThreshold}
+        \PY{n}{thresholder} \PY{o}{=} \PY{n}{VarianceThreshold}\PY{p}{(}\PY{n}{threshold}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{variance\PYZus{}threshold\PYZus{}selector}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{threshold}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
+            \PY{n}{selector} \PY{o}{=} \PY{n}{VarianceThreshold}\PY{p}{(}\PY{n}{threshold}\PY{p}{)}
+            \PY{n}{selector}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+            \PY{k}{return} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{selector}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{n}{indices}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features\PYZus{}selected\PYZus{}train} \PY{o}{=} \PY{n}{variance\PYZus{}threshold\PYZus{}selector}\PY{p}{(}\PY{n}{features\PYZus{}64\PYZus{}train}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} features\PYZus{}selected\PYZus{}train = variance\PYZus{}threshold\PYZus{}selector(features\PYZus{}64\PYZus{}train)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features\PYZus{}selected\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} Compute the correlation matrix}
+        \PY{n}{corr} \PY{o}{=} \PY{n}{features\PYZus{}selected\PYZus{}train}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Generate a mask for the upper triangle}
+        \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{bool}\PY{p}{)}
+        \PY{n}{mask}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+        
+        \PY{c+c1}{\PYZsh{} Set up the matplotlib figure}
+        \PY{n}{f}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Generate a custom diverging colormap}
+        \PY{n}{cmap} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{diverging\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Draw the heatmap with the mask and correct aspect ratio}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{mask}\PY{o}{=}\PY{n}{mask}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{center}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                    \PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{cbar\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{shrink}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Create correlation matrix}
+        \PY{n}{corr\PYZus{}matrix} \PY{o}{=} \PY{n}{features\PYZus{}selected\PYZus{}train}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Select upper triangle of correlation matrix}
+        \PY{n}{upper} \PY{o}{=} \PY{n}{corr\PYZus{}matrix}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{triu}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{corr\PYZus{}matrix}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{bool}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Find index of feature columns with correlation greater than 0.95}
+        \PY{n}{to\PYZus{}drop} \PY{o}{=} \PY{p}{[}\PY{n}{column} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{upper}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n+nb}{any}\PY{p}{(}\PY{n}{upper}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.95}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{upper}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features\PYZus{}selected\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{to\PYZus{}drop}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{SelectKBest}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{f\PYZus{}regression}\PY{p}{,} \PY{n}{mutual\PYZus{}info\PYZus{}regression}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{information\PYZus{}selector}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{scoring}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+            \PY{n}{selector} \PY{o}{=} \PY{n}{SelectKBest}\PY{p}{(}\PY{n}{score\PYZus{}func}\PY{o}{=}\PY{n}{scoring}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{n}{k}\PY{p}{)}
+            \PY{n}{selector}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+            \PY{k}{return} \PY{n}{X}\PY{p}{[}\PY{n}{X}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{selector}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{n}{indices}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}\PY{p}{]}
+        \PY{n}{test} \PY{o}{=} \PY{n}{SelectKBest}\PY{p}{(}\PY{n}{score\PYZus{}func}\PY{o}{=}\PY{n}{mutual\PYZus{}info\PYZus{}regression}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+        \PY{n}{fit} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}selected\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features\PYZus{}selected\PYZus{}train}\PY{p}{[}\PY{n}{features\PYZus{}selected\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{fit}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{n}{indices}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features\PYZus{}selected\PYZus{}train} \PY{o}{=} \PY{n}{information\PYZus{}selector}\PY{p}{(}\PY{n}{features\PYZus{}selected\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{mutual\PYZus{}info\PYZus{}regression}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} fit a model}
+        \PY{n}{lm} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+        \PY{n}{model} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}selected\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features\PYZus{}selected\PYZus{}test} \PY{o}{=} \PY{n}{features\PYZus{}64\PYZus{}test}\PY{p}{[}\PY{n}{features\PYZus{}selected\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{features\PYZus{}selected\PYZus{}test}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{RFE}
+        \PY{n}{rfe} \PY{o}{=} \PY{n}{RFE}\PY{p}{(}\PY{n}{lm}\PY{p}{,} \PY{n}{n\PYZus{}features\PYZus{}to\PYZus{}select}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{rfe}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}selected\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{ranking}\PY{p}{(}\PY{n}{ranks}\PY{p}{,} \PY{n}{names}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n}{ranks} \PY{o}{=} \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{ranks}\PY{p}{)}
+            \PY{k}{return} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{ranks}\PY{p}{,} \PY{n}{names}\PY{p}{)}\PY{p}{,}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{rankings} \PY{o}{=} \PY{n}{ranking}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{lm}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}\PY{p}{,} \PY{n}{features\PYZus{}selected\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{rankings}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{15}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{p}{[}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{rankings}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{final\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{rankings}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{lm} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+        \PY{n}{model} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}selected\PYZus{}train}\PY{p}{[}\PY{n}{final\PYZus{}columns}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{features\PYZus{}selected\PYZus{}test} \PY{o}{=} \PY{n}{features\PYZus{}64\PYZus{}test}\PY{p}{[}\PY{n}{final\PYZus{}columns}\PY{p}{]}
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{features\PYZus{}selected\PYZus{}test}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Get numerical feature importances}
+        \PY{n}{importances} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{rf}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} List of tuples with variable and importance}
+        \PY{n}{feature\PYZus{}importances} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{feature}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{importance}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{feature}\PY{p}{,} \PY{n}{importance} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{feature\PYZus{}list}\PY{p}{,} \PY{n}{importances}\PY{p}{)}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{} Sort the feature importances by most important first}
+        \PY{n}{feature\PYZus{}importances} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{feature\PYZus{}importances}\PY{p}{,} \PY{n}{key} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{reverse} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Print out the feature and importances }
+        \PY{p}{[}\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variable: }\PY{l+s+si}{\PYZob{}:20\PYZcb{}}\PY{l+s+s1}{ Importance: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{pair}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{pair} \PY{o+ow}{in} \PY{n}{feature\PYZus{}importances}\PY{p}{]}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Module 2 Projects}
+        
+        \PY{n}{Projects} \PY{n}{are} \PY{n}{designed} \PY{n}{to} \PY{n}{review} \PY{n}{the} \PY{n}{material} \PY{n}{we} \PY{n}{covered} \PY{o+ow}{in} \PY{n}{Module} \PY{l+m+mi}{2}\PY{p}{:}
+        
+        \PY{o}{*} \PY{n}{cleaning} \PY{n}{data} \PY{k}{with} \PY{n}{numpy} \PY{o+ow}{and} \PY{n}{pandas}
+        \PY{o}{*} \PY{n}{probability} \PY{o+ow}{and} \PY{n}{combinatorics}
+        \PY{o}{*} \PY{n}{probability} \PY{n}{distributions}
+        \PY{o}{*} \PY{n}{hypothesis} \PY{n}{testing}
+        \PY{o}{*} \PY{n}{simple} \PY{n}{linear} \PY{n}{regression}
+        \PY{o}{*} \PY{n}{multiple} \PY{n}{linear} \PY{n}{regression}
+        \PY{o}{*} \PY{n}{cross} \PY{n}{validation} \PY{o+ow}{and} \PY{n}{the} \PY{n}{bias}\PY{o}{/}\PY{n}{variance} \PY{n}{tradeoff}
+        
+        \PY{n}{Ask} \PY{n}{a} \PY{n}{main} \PY{n}{question} \PY{k}{with} \PY{n}{which} \PY{n}{you} \PY{n}{can} \PY{n}{use} \PY{n}{a} \PY{n}{regression} \PY{n}{to} \PY{n}{answer}\PY{o}{.} \PY{n}{The} \PY{n}{other} \PY{n}{topics} \PY{n}{we} \PY{n}{learned} \PY{o+ow}{in} \PY{n}{Module} \PY{l+m+mi}{2} \PY{n}{can} \PY{n}{be} \PY{n}{used} \PY{k}{as} \PY{n}{further} \PY{n}{justification} \PY{k}{for} \PY{n}{your} \PY{n}{answers} \PY{n}{to} \PY{n}{subsequent} \PY{n}{questions}\PY{o}{.}
+        
+        \PY{n}{Sample} \PY{n}{Questions}\PY{p}{:}
+        
+        \PY{o}{*} \PY{n}{What} \PY{n}{best} \PY{n}{determines} \PY{n}{the} \PY{n}{final} \PY{n}{auction} \PY{n}{price} \PY{n}{of} \PY{n}{an} item\PY{o}{?}
+        \PY{o}{*} \PY{n}{What} \PY{n}{are} \PY{n}{the} \PY{n}{key} \PY{n}{factors} \PY{o+ow}{in} \PY{n}{determining} \PY{n}{a} \PY{n}{country}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s happiness level?}
+        \PY{o}{*} \PY{n}{Is} \PY{n}{there} \PY{n}{a} \PY{n}{way} \PY{n}{we} \PY{n}{can} \PY{n}{predict} \PY{n}{the} \PY{n}{spread} \PY{n}{of} \PY{n}{a} \PY{n}{football} game\PY{o}{?}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Data}
+        \PY{o}{*} \PY{n}{You} \PY{n}{must} \PY{n}{have} \PY{n}{at} \PY{n}{least} \PY{l+m+mi}{4} \PY{n}{different} \PY{n}{features} \PY{o+ow}{in} \PY{n}{your} \PY{n}{models} \PY{p}{(}\PY{n}{independent} \PY{n}{variables}\PY{p}{)} \PY{k}{with} \PY{n}{at} \PY{n}{least} \PY{n}{one} \PY{n}{target} \PY{p}{(}\PY{n}{dependent} \PY{n}{variable}\PY{p}{)}\PY{o}{.}
+        \PY{o}{*} \PY{n}{Your} \PY{n}{data} \PY{n}{must} \PY{n}{contain} \PY{n}{at} \PY{n}{least} \PY{n}{one} \PY{n}{categorical} \PY{n}{feature} \PY{o+ow}{and} \PY{n}{at} \PY{n}{least} \PY{n}{one} \PY{n}{numerical} \PY{n}{feature}
+        \PY{o}{*} \PY{o}{*}\PY{o}{*}\PY{n}{BONUS}\PY{o}{*}\PY{o}{*}\PY{p}{:} \PY{n}{Challenge} \PY{n}{yourself} \PY{n}{to} \PY{n}{obtain} \PY{n}{a} \PY{n}{unique} \PY{n}{dataset} \PY{p}{(}\PY{n}{either} \PY{k+kn}{from} \PY{n+nn}{webscraping} \PY{o+ow}{or} \PY{n}{querying} \PY{n}{APIs}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} The Deliverables}
+        
+        \PY{l+m+mf}{1.} \PY{o}{*}\PY{o}{*} \PY{n}{A} \PY{n}{well} \PY{n}{documented} \PY{n}{Jupyter} \PY{n}{Notebook}\PY{o}{*}\PY{o}{*} \PY{n}{containing} \PY{n+nb}{any} \PY{n}{code} \PY{n}{you}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ve written for this project, comments explaining it, and graphical visualizations.}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} Requirements}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Organization/Code Cleanliness}
+        
+        \PY{o}{*} \PY{n}{The} \PY{n}{notebook} \PY{n}{should} \PY{n}{be} \PY{n}{well} \PY{n}{organized}\PY{p}{,} \PY{n}{easy} \PY{n}{to} \PY{n}{follow}\PY{p}{,}  \PY{o+ow}{and} \PY{n}{code} \PY{n}{should} \PY{n}{be} \PY{n}{commented} \PY{n}{where} \PY{n}{appropriate}\PY{o}{.}  
+            \PY{o}{*} \PY{n}{Level} \PY{n}{Up}\PY{p}{:} \PY{n}{The} \PY{n}{notebook} \PY{n}{contains} \PY{n}{well}\PY{o}{\PYZhy{}}\PY{n}{formatted}\PY{p}{,} \PY{n}{professional} \PY{n}{looking} \PY{n}{markdown} \PY{n}{cells} \PY{n}{explaining} \PY{n+nb}{any} \PY{n}{substantial} \PY{n}{code}\PY{o}{.} \PY{n}{All} \PY{n}{functions} \PY{n}{have} \PY{n}{docstrings} \PY{n}{that} \PY{n}{act} \PY{k}{as} \PY{n}{professional}\PY{o}{\PYZhy{}}\PY{n}{quality} \PY{n}{documentation}
+        \PY{o}{*} \PY{n}{The} \PY{n}{notebook} \PY{o+ow}{is} \PY{n}{written} \PY{k}{for} \PY{n}{a} \PY{n}{technical} \PY{n}{audiences} \PY{k}{with} \PY{n}{a} \PY{n}{way} \PY{n}{to} \PY{n}{both} \PY{n}{understand} \PY{n}{your} \PY{n}{approach} \PY{o+ow}{and} \PY{n}{reproduce} \PY{n}{your} \PY{n}{results}\PY{o}{.} \PY{n}{The} \PY{n}{target} \PY{n}{audience} \PY{k}{for} \PY{n}{this} \PY{n}{deliverable} \PY{o+ow}{is} \PY{n}{other} \PY{n}{data} \PY{n}{scientists} \PY{n}{looking} \PY{n}{to} \PY{n}{validate} \PY{n}{your} \PY{n}{findings}\PY{o}{.}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Visualizations \PYZam{} EDA (Exploratory Data Analysis)}
+        
+        \PY{o}{*} \PY{n}{Your} \PY{n}{project} \PY{n}{contains} \PY{n}{at} \PY{n}{least} \PY{l+m+mi}{4} \PY{n}{\PYZus{}meaningful\PYZus{}} \PY{n}{data} \PY{n}{visualizations}\PY{p}{,} \PY{k}{with} \PY{n}{corresponding} \PY{n}{interpretations}\PY{o}{.} \PY{n}{All} \PY{n}{visualizations} \PY{n}{are} \PY{n}{well} \PY{n}{labeled} \PY{k}{with} \PY{n}{axes} \PY{n}{labels}\PY{p}{,} \PY{n}{a} \PY{n}{title}\PY{p}{,} \PY{o+ow}{and} \PY{n}{a} \PY{n}{legend} \PY{p}{(}\PY{n}{when} \PY{n}{appropriate}\PY{p}{)}  
+        \PY{o}{*} \PY{n}{You} \PY{n}{pose} \PY{n}{at} \PY{n}{least} \PY{l+m+mi}{3} \PY{n}{meaningful} \PY{n}{questions} \PY{o+ow}{and} \PY{n}{answer} \PY{n}{them} \PY{n}{through} \PY{n}{EDA}\PY{o}{.}  \PY{n}{These} \PY{n}{questions} \PY{n}{should} \PY{n}{be} \PY{n}{well} \PY{n}{labeled} \PY{o+ow}{and} \PY{n}{easy} \PY{n}{to} \PY{n}{identify} \PY{n}{inside} \PY{n}{the} \PY{n}{notebook}\PY{o}{.}
+            \PY{o}{*} \PY{o}{*}\PY{o}{*}\PY{n}{Level} \PY{n}{Up}\PY{o}{*}\PY{o}{*}\PY{p}{:} \PY{n}{Each} \PY{n}{question} \PY{o+ow}{is} \PY{n}{clearly} \PY{n}{answered} \PY{k}{with} \PY{n}{a} \PY{n}{visualization} \PY{n}{that} \PY{n}{makes} \PY{n}{the} \PY{n}{answer} \PY{n}{easy} \PY{n}{to} \PY{n}{understand}\PY{o}{.}   
+        \PY{o}{*} \PY{n}{Your} \PY{n}{notebook} \PY{n}{should} \PY{n}{contain} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2} \PY{n}{paragraphs} \PY{n}{briefly} \PY{n}{explaining} \PY{n}{your} \PY{n}{approach} \PY{n}{to} \PY{n}{this} \PY{n}{project}\PY{o}{.}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Model Quality/Approach}
+        
+        \PY{o}{*} \PY{n}{Your} \PY{n}{model} \PY{n}{should} \PY{o+ow}{not} \PY{n}{include} \PY{n+nb}{any} \PY{n}{predictors} \PY{k}{with} \PY{n}{p}\PY{o}{\PYZhy{}}\PY{n}{values} \PY{n}{greater} \PY{n}{than} \PY{o}{.}\PY{l+m+mi}{05} \PY{p}{(}\PY{n}{unless} \PY{n}{you} \PY{n}{can} \PY{n}{justify}\PY{p}{)}
+        \PY{o}{*} \PY{n}{Your} \PY{n}{model} \PY{n}{should} \PY{n}{have} \PY{n}{cross}\PY{o}{\PYZhy{}}\PY{n}{validation} \PY{o+ow}{and} \PY{n}{account} \PY{k}{for} \PY{n}{the} \PY{n}{bias}\PY{o}{\PYZhy{}}\PY{n}{variance} \PY{n}{tradeoff}  
+        \PY{o}{*} \PY{n}{Your} \PY{n}{notebook} \PY{n}{shows} \PY{n}{an} \PY{n}{iterative} \PY{n}{approach} \PY{n}{to} \PY{n}{modeling}\PY{p}{,} \PY{o+ow}{and} \PY{n}{details} \PY{n}{the} \PY{n}{parameters} \PY{o+ow}{and} \PY{n}{results} \PY{n}{of} \PY{n}{the} \PY{n}{model} \PY{n}{at} \PY{n}{each} \PY{n}{iteration}\PY{o}{.}  
+            \PY{o}{*} \PY{o}{*}\PY{o}{*}\PY{n}{Level} \PY{n}{Up}\PY{o}{*}\PY{o}{*}\PY{p}{:} \PY{n}{Whenever} \PY{n}{necessary}\PY{p}{,} \PY{n}{you} \PY{n}{briefly} \PY{n}{explain} \PY{n}{the} \PY{n}{changes} \PY{n}{made} \PY{k+kn}{from} \PY{n+nn}{one} \PY{n}{iteration} \PY{n}{to} \PY{n}{the} \PY{n+nb}{next}\PY{p}{,} \PY{o+ow}{and} \PY{n}{why} \PY{n}{you} \PY{n}{made} \PY{n}{these} \PY{n}{choices}\PY{o}{.}  
+        \PY{o}{*} \PY{n}{You} \PY{n}{provide} \PY{n}{at} \PY{n}{least} \PY{l+m+mi}{1} \PY{n}{paragraph} \PY{n}{explaining} \PY{n}{your} \PY{n}{final} \PY{n}{model}\PY{o}{.}   
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
